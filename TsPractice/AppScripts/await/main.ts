@@ -2,8 +2,8 @@
 export class MyApp {
 
 
-    initialize() {
-
+    initialize(): void {
+        // to be filled
     }
 
 
@@ -11,8 +11,8 @@ export class MyApp {
         return new Promise<number>(
             (resolve, reject) => {
                 setTimeout(() => {
-                    let isSuccess: boolean = (new Date).getTime() % 2 == 0;
-                    if (isSuccess) resolve(count); else reject();
+                    let isSuccess: boolean = (new Date).getTime() % 2 === 0;
+                    if (isSuccess) { resolve(count); } else { reject(); }
                 }, milliseconds);
             }
         );
@@ -29,19 +29,17 @@ export class MyApp {
     }
 
     testJson = (): void => {
-        let input = parseInt(jQuery("#myData").val());
-        let p = this.getByJson(input);
+        let input: number = parseInt(jQuery("#myData").val(), 10);
+        let p: JQueryPromise<string> = this.getByJson(input);
         p.done((v) => { console.log(`Success: ${v}`); });
         p.fail((v) => { console.log(`Failure: ${v}`); });
     }
-
-
-
 }
 
 
 jQuery(document).ready(() => {
-    let myApp = new MyApp();
+    let myApp: MyApp = new MyApp();
+    // tslint:disable-next-line:no-string-literal
     window["myApp"] = myApp;
     myApp.initialize();
     jQuery("#start").click(myApp.testJson);
